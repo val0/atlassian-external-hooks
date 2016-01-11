@@ -76,6 +76,12 @@ public class ExternalPreReceiveHook
 
         Map<String, String> env = pb.environment();
         env.put("STASH_USER_NAME", currentUser.getName());
+		env.put("STASH_REPO_PATH", repoPath);
+        if (currentUser.getDisplayName() != null) {
+            env.put("STASH_DISPLAY_NAME", currentUser.getDisplayName());
+        } else {
+            log.error("Can't get user full name. getDisplayName() call returns null");
+        }
         if (currentUser.getEmailAddress() != null) {
             env.put("STASH_USER_EMAIL", currentUser.getEmailAddress());
         } else {
